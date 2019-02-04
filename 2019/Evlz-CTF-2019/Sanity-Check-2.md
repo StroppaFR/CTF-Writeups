@@ -1,12 +1,18 @@
 # Sanity Check 2
+
 **Category**: Sanity
+
 **Author**: Hexterisk
+
 **Points**: 50
+
 **Challenge**: 
+
 No one deserving should go ever go empty handed.
 [Image]
 
 **Solution:** 
+
 Second sanity check, image is a QR code.
 
 Scanning it reveals a Zippyshare link to download a **flag.zip** archive protected by a password, containing a **flag.txt** file.

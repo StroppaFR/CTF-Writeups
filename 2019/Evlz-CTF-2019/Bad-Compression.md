@@ -1,12 +1,19 @@
 # Bad Compression
+
 **Category**: Crypto
+
 **Author**: Xorcerer
+
 **Points**: 150
+
 **Challenge**: 
+
 This won't be too bad, I guess...  [File]
 
 **Solution:**
+
 The file contains a python script which seems to execute some kind of on an input string.
+
 We are also given the compressed flag:
 > 100001000100110000000100
 

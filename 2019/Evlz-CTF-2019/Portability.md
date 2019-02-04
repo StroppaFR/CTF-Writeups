@@ -1,10 +1,15 @@
 # Portability
+
 **Category**: Misc
+
 **Points**: 25
+
 **Challenge**: 
+
 My beautiful API is finally ready! Uses Flask, Virtual Environments, and loads the config from Environment Variables! [Download]
 
 **Solution:** 
+
 The zip files contains a Web API using Python and Flask.
 
 When reading the **application.py** file, we notice that the flag is loaded from an environment variable.

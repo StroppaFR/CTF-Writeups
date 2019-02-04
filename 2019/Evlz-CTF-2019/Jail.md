@@ -1,11 +1,16 @@
 # Jail
+
 **Category**: Misc
+
 **Author**: Hexterisk
+
 **Points**: 290
-**Challenge**: 
+
+**Challenge**:
 `ssh u1@xx.xxx.xxx.xxx -p 2220 pass u1`
 
 **Solution:** 
+
 When connecting, we are inside a shell script that executes our commands. We can get out with **bash**.
 
 From there we can't see the standard output stream but we can see the standard error stream so we can simply redirect with **1>&2** and find the flag.

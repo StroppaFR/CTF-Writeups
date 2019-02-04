@@ -1,11 +1,17 @@
 # Find Me
+
 **Category**: Reverse
+
 **Author**: Achilles
+
 **Points**: 396
+
 **Challenge**: 
+
 Take the [binary] give me the flag
 
 **Solution:**
+
 The binary file is a 64-bit ELF shared object which crashes when trying to execute it.
 
 But we don't need to execute it as the **strings** command shows the following strings:
