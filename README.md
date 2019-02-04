@@ -1,2 +1,2 @@
-# CTF-Writeups
-Capture The Flag writeups
+# CTF Writeups
+Capture The Flag events writeups.
