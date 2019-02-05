@@ -17,7 +17,7 @@ When reading the **application.py** file, we notice that the flag is loaded from
 
 Obviously our environment doesn't contain the flag but we can look around for the "setenv" or "export" string.
 
-`grep -r ./ -e setenv-e export`
+`grep -r ./ -e setenv -e export`
 
 One interesting commented line comes out:
 > \# export $(echo RkxBRwo= | base64 -d)=ZXZsenthbHdheXNfaWdub3JlX3RoZV91bm5lY2Nlc3Nhcnl9Y3RmCg==
