@@ -18,7 +18,7 @@ The challenge and file names indicate that this is probably an array of 32 chara
 
 Assuming the byte array is our encrypted text, we have only 32 characters to work with. That is definitevely not enough for any kind of statistical analysis and the challenge description tells us that there is no bruteforce required so we are not left with many solutions...
 
-One of them is the Known-Plaintext Attack, maybe we can guess a part of the plaintext ?
+One of them is the Known-Plaintext Attack, maybe we can guess a part of the plaintext?
 
 The plaintext will be 32 characters long so it could simply be the flag. And we know that all flags during this CTF are formatted in the same way: `RM{...}`.
 
@@ -54,7 +54,7 @@ plain = "".join(chr(key[i % key_len] ^ ord(c)) for i, c in enumerate(enc))
 print(plain)
 ```
 
-Our intuition was correct !
+Our intuition was correct!
 ```
 RM{V3ry_S3cur3_FL4g_3ncrypt0r!!}
 ```

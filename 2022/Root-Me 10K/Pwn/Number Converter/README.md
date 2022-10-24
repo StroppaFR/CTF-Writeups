@@ -119,15 +119,15 @@ Input number: __isoc99_scanf(20, 0x7ffe71d79b60, 0x7ffe71d79b60, 0 <no return ..
 --- SIGSEGV (Segmentation fault) ---
 ```
 
-How can we exploit this ? Well, if we somehow manage to find or store a pointer to a string `"%s"` somewhere before the formatters array, we will be able to use it and effectively call `scanf("%s", &converted)` which is **very not secure**.
+How can we exploit this? Well, if we somehow manage to find or store a pointer to a string `"%s"` somewhere before the formatters array, we will be able to use it and effectively call `scanf("%s", &converted)` which is **very not secure**.
 
 ## Smuggling %s
 
-What can we use to write the string `"%s"` and a pointer to `"%s"` before the formatters ? The `scanf` call will be of no use because it stores its result on the stack. Same issue with the `read_int` function.
+What can we use to write the string `"%s"` and a pointer to `"%s"` before the formatters? The `scanf` call will be of no use because it stores its result on the stack. Same issue with the `read_int` function.
 
-The only remaining possibility is the login and password inputs. Lucky for us, they are stored in memory just before the `formatters` array ! All we have to do is store our string and pointer in one of these fields and we can trigger a `scanf("%s", &converted)` !
+The only remaining possibility is the login and password inputs. Lucky for us, they are stored in memory just before the `formatters` array! All we have to do is store our string and pointer in one of these fields and we can trigger a `scanf("%s", &converted)`!
 
-But wait... This will fail the authentication check and won't even let us access the number converter... unless... ?
+But wait... This will fail the authentication check and won't even let us access the number converter... unless...?
 
 Let's review how our credentials are read and checked.
 
@@ -138,7 +138,7 @@ fgets(password,31,stdin);
 cmp = strcmp(username,"admin");
 ```
 
-See the issue here ? `fgets` allows us to input null bytes but the string comparison is made with `strcmp` which stops comparing when encountering a null byte.
+See the issue here? `fgets` allows us to input null bytes but the string comparison is made with `strcmp` which stops comparing when encountering a null byte.
 
 This means **we can input anything after the login or password followed by a null byte** and still pass the login check.
 
@@ -174,7 +174,7 @@ p.recvuntil("Input number:")
 p.sendline("A" * 100)
 ```
 
-Finally, we use the choice 0 which exits main with a `ret` instruction and... Success !
+Finally, we use the choice 0 which exits main with a `ret` instruction and... Success!
 
 ![overflow](overflow.png)
 

@@ -49,7 +49,7 @@ $ cat message.enc | base64 -d | xxd
 00000140: 1115 0a
 ```
 
-Well, this is why the base64 string was weird, every byte in the encrypted data is less than 128 ! This is not usual for a XOR encryption. What can we infer from this ?
+Well, this is why the base64 string was weird, every byte in the encrypted data is less than 128! This is not usual for a XOR encryption. What can we infer from this?
 
 The most reasonable explanation here is :
 - The plaintext is ASCII < 128 only, because it's a text written in human language.
@@ -59,7 +59,7 @@ Indeed, if both those statements are correct, the first bit of all the bytes in 
 
 ## Finding the key length
 
-The first thing we have to do is find the length of the key used for the XOR encryption. How can we do this ?
+The first thing we have to do is find the length of the key used for the XOR encryption. How can we do this?
 
 The data is long enough that we can try to find equal sequences of bytes in the encrypted text. This is not a foolproof method but it works here.
 
@@ -88,7 +88,7 @@ I didn't want to think too hard on that so after a few failed attempts, I settle
 
 To start, we need to choose one charset for the key and one charset for the plaintext. From that we will find the only possible characters in each position of the key that decrypt the data to the chosen charset.
 
-First let's choose a charset for the plaintext. We know from our previous assumptions that it is ASCII < 127. Assuming it's readable text, we can start with a `[A-Za-z0-9 ]` charset and add probable special characters like ponctuation, spaces and `{}_-` (for the flag) until we reach a good result.
+First let's choose a charset for the plaintext. We know from our previous assumptions that it is ASCII < 127. Assuming it's readable text, we can start with a `[A-Za-z0-9 ]` charset and add probable special characters like punctuation, spaces and `{}_-` (for the flag) until we reach a good result.
 
 For the key, since it's only 20 characters long and we assume it's readable, `[A-Za-z0-9 ]` + a few characters like `{} -_` should probably be enough. If it's not we can still add more later.
 
@@ -139,7 +139,7 @@ key[18]: ['3']
 key[19]: ['y']
 ```
 
-This looks pretty good ! We can already guess the second half of the key is `s3cr3t k3y`.
+This looks pretty good! We can already guess the second half of the key is `s3cr3t k3y`.
 
 ## Finding the rest of the key
 
