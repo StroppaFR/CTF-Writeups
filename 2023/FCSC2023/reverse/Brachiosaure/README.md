@@ -14,7 +14,7 @@ The web service expects two PNG images associated with the username: a **Usernam
 
 The first step of this challenge is to reverse engineer the provided executable and find out what it wants from us. A quick look with `file` and `ldd` shows that it is in `ELF x86-64` format and that it is using many shared libraries. Some of them are used for images processing, and we can also find [the zbar library](https://github.com/herbyme/zbar) used for reading QR codes from images.
 
-```
+```console
 $ file ./brachiosaure 
 ./brachiosaure: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, [...], stripped
 
@@ -28,7 +28,7 @@ $ ldd ./brachiosaure
 
 Running the binary with no arguments shows the usage, which confirms that we need to find two valid images for a specific username.
 
-```
+```console
 $ ./brachiosaure 
 Usage: ./brachiosaure <username> <username.png> <serial.png>
 ```
@@ -213,61 +213,61 @@ Knowing that, a method to solve this problem is to use **block matrices**. A blo
 
 To illustrate, if we split two big matrices $A$ and $B$ into smaller matrices $A_{1,1}, A_{1,2}, A_{2,1}, A_{2,2}$ and $B_{1,1}, B_{1,2}, B_{2,1}, B_{2,2}$, the dot product of $A$ and $B$ can be computed this way :
 
-$$
+```math
 A \cdot B =
 \begin{pmatrix}
 A_{1,1} & A_{1,2} \\
-A_{2,1} & A_{2,2} \\
+A_{2,1} & A_{2,2}
 \end{pmatrix}
 \cdot 
 \begin{pmatrix}
 B_{1,1} & B_{1,2} \\
-B_{2,1} & B_{2,2} \\
+B_{2,1} & B_{2,2}
 \end{pmatrix}
 =
 \begin{pmatrix}
 A_{1,1} \cdot B_{1,1} + A_{1,2} \cdot B_{2,1} & A_{1,1} \cdot B_{1,2} + A_{1,2} \cdot B_{2,2}\\
-A_{2,1} \cdot B_{1,1} + A_{2,2} \cdot B_{2,1} & A_{2,1} \cdot B_{1,2} + A_{2,2} \cdot B_{2,2}\\
+A_{2,1} \cdot B_{1,1} + A_{2,2} \cdot B_{2,1} & A_{2,1} \cdot B_{1,2} + A_{2,2} \cdot B_{2,2}
 \end{pmatrix}
-$$
+```
 
 In particular, by choosing $A_{1,2} = A_{2,1} = B_{1,2} = B_{2,1} = 0$, we get :
 
-$$
+```math
 A \cdot B =
 \begin{pmatrix}
 A_{1,1} & 0 \\
-0 & A_{2,2} \\
+0 & A_{2,2}
 \end{pmatrix}
 \cdot 
 \begin{pmatrix}
 B_{1,1} & 0 \\
-0 & B_{2,2} \\
+0 & B_{2,2}
 \end{pmatrix}
 =
 \begin{pmatrix}
 A_{1,1} \cdot B_{1,1} & 0\\
-0 & A_{2,2} \cdot B_{2,2}\\
+0 & A_{2,2} \cdot B_{2,2}
 \end{pmatrix}
-$$
+```
 
-Finally, by choosing $B_{1,1} = A^{-1}_{1,1}$ and $A_{2,2} = B^{-1}_{2,2}$, we reach the following equality (where $I$ is the identity matrix) :
+Finally, by choosing $B_{1,1} = A_{1,1}^{-1}$ and $A_{2,2} = B_{2,2}^{-1}$, we reach the following equality (where $I$ is the identity matrix) :
 
-$$
+```math
 A \cdot B =
 \begin{pmatrix}
 A_{1,1} & 0 \\
-0 & B^{-1}_{2,2} \\
+0 & B^{-1}_{2,2}
 \end{pmatrix}
 \cdot 
 \begin{pmatrix}
 A^{-1}_{1,1} & 0 \\
-0 & B_{2,2} \\
+0 & B_{2,2}
 \end{pmatrix}
 =
 \begin{pmatrix}
 A_{1,1} \cdot A^{-1}_{1,1} & 0\\
-0 & B^{-1}_{2,2} \cdot B_{2,2}\\
+0 & B^{-1}_{2,2} \cdot B_{2,2}
 \end{pmatrix}
 =
 \begin{pmatrix}
@@ -276,24 +276,27 @@ I & 0 \\
 \end{pmatrix}
 =
 I
-$$
+```
 
 Armed with this knowledge, we can now create the following two images / matrices which will satisfy all conditions.
-$$
+
+```math
 Image1 = 
 \begin{pmatrix}
 QRcode1 & 0 \\
 0 & inverse(QRcode2)
 \end{pmatrix}
-$$
+```
+
 and
-$$
+
+```math
 Image2 =
 \begin{pmatrix}
 inverse(QRcode1) & 0 \\
 0 & QRcode2
 \end{pmatrix}
-$$
+```
 
 All that's left now is to code some Python and Sage scripts to generate the QR codes, invert some matrices, create the PNG images, and we should be done.
 
@@ -352,7 +355,7 @@ ZeroDivisionError: input matrix must be nonsingular
 
 Well it makes sense, not all matrices are invertible!
 
-When working with coefficients in $\R$, a square matrix is invertible if and only if its determinant is non-zero. In this problem we are working with the ring of integers modulo 256. The condition for a matrix to be invertible here is that **its determinant is coprime with 256**, so the determinant has to be odd.
+When working with coefficients in $\mathbb{R}$, a square matrix is invertible if and only if its determinant is non-zero. In this problem we are working with the ring of integers modulo 256. The condition for a matrix to be invertible here is that **its determinant is coprime with 256**, so the determinant has to be odd.
 
 With default QR code matrices, the QR code border makes the determinant zero because we get multiple lines with the exact same pixel values.
 
@@ -400,6 +403,8 @@ The "username" QR code.
 The "serial" QR code.
 
 ![Username QR code image](./images/img2.png)
+
+Wrapping everything in a Python script, we get the flag.
 
 ```console
 $ python solve.py 
