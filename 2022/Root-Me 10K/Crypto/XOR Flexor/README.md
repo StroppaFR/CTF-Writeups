@@ -1,6 +1,6 @@
 # XOR Flexor
 
-![description](./description.png)
+![description](./images/description.png)
 
 File: [xor.enc](./xor.enc)
 

@@ -1,6 +1,6 @@
 # Easy XOR
 
-![description](./description.png)
+![description](./images/description.png)
 
 File: [message.enc](./xor.enc)
 
@@ -71,7 +71,7 @@ We could achieve this with some intelligent programming but that requires thinki
 
 Aligning the data by blocks of 20 bytes gives us the best results (and 10 looks worse), so we can safely infer that the key length is most likely 20 and that our previous assumptions are correct.
 
-![repetitions](./repetitions.png)
+![repetitions](./images/repetitions.png)
 
 ## Choosing a strategy
 

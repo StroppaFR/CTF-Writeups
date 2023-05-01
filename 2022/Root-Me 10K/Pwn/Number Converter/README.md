@@ -1,6 +1,6 @@
 # Number Converter
 
-![description](./description.png)
+![description](./images/description.png)
 
 File: [number-converter.zip](./number-converter.zip)
 
@@ -26,7 +26,7 @@ Invalid credentials!
 
 Before taking a closer look, let's check the protections using `checksec`:
 
-![checksec](checksec.png)
+![checksec](./images/checksec.png)
 
 `No canary found` may hint towards a buffer overflow, but `NX enabled` means we will probably need to use ROP if we do exploit one. `No PIE` will also makes things easier by having constant addresses for the program memory.
 
@@ -176,7 +176,7 @@ p.sendline("A" * 100)
 
 Finally, we use the choice 0 which exits main with a `ret` instruction and... Success!
 
-![overflow](overflow.png)
+![overflow](./images/overflow.png)
 
 ## From stack overflow to shell
 
