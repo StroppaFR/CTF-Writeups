@@ -22,7 +22,7 @@ A good start to understand how JPEG image start is the [Syntax and structure par
 
 > Within the entropy-coded data, after any 0xFF byte, a 0x00 byte is inserted by the encoder before the next byte, so that there does not appear to be a marker where none is intended
 
-With this information, let's open the JPEG file in an hexadecimal editor, find the `0xff` bytes not followed by `0x00` and check what kind of segments are used and what we can do with them. More in-depth information about the segments can be found on the web, I found [this random 2002 webpage](https://mykb.cipindanci.com/archive/SuperKB/1294/) to be good enough for what we want to do.
+With this information, let's open the JPEG file in an hexadecimal editor, find the `0xff` bytes not followed by `0x00` and check what kind of segments are used and what we can do with them. More in-depth information about the segments can be found on the web, I found [this random 2002 webpage](https://mykb.cipindanci.com/archive/SuperKB/1294/JPEG%20File%20Layout%20and%20Format.htm) to be good enough for what we want to do.
 
 First we can look at the start of the file :
 
