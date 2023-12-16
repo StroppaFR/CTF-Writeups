@@ -328,7 +328,7 @@ qr1 = qr.make_image().convert("L")
 
 ## ZeroDivisionError: input matrix must be nonsingular
 
-To inverse the QR code matrices, I first tried to use Python's `sympy` module, but for some reason it wasn't able to it in less than several minutes. This is apparently a [known performance issue](https://github.com/sympy/sympy/issues/23131). Instead, I resorted to using a SageMath script which usually does the job in less than a second.
+To invert the QR code matrices, I first tried to use Python's `sympy` module, but for some reason it wasn't able to it in less than several minutes. This is apparently a [known performance issue](https://github.com/sympy/sympy/issues/23131). Instead, I resorted to using a SageMath script which usually does the job in less than a second.
 
 ```python
 # Read 2 matrices from command line
@@ -417,5 +417,5 @@ Got the flag: FCSC{c2ddbd0310bcf5f65c576453ee9697774afd38dc887b64f4dccc63ac598d0
 
 You can find the code for the automated solving process here :
 - The main [Python keygen script](./scripts/keygen.py) used to generate valid images for a given username.
-- The [SageMath script to adjust and inverse the QR code matrices](./scripts/adjust_and_inverse.sage).
+- The [SageMath script to adjust and invert the QR code matrices](./scripts/adjust_and_inverse.sage).
 - A [wrapper script](./scripts/solve.py) that solves the challenge and fetches the flag.
